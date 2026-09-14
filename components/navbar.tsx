@@ -87,7 +87,7 @@ export function Navbar() {
             ))}
           </nav>
 
-          <div className="ml-2 hidden items-center gap-2 md:flex">
+          <div className="hidden items-center gap-2 md:flex">
             <ThemeToggle className="rounded-full" />
             <ResumeLink className="px-4 py-1.5 text-sm" />
           </div>

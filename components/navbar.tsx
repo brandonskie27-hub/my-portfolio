@@ -59,7 +59,7 @@ export function Navbar() {
   return (
     <header className="fixed inset-x-0 top-4 z-50 flex justify-center px-4">
       <div className="relative">
-        <div className="flex items-center gap-1 rounded-full border border-border/60 bg-background/70 py-2 pl-5 pr-2 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.3)] backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
+        <div className="flex items-center gap-1 rounded-full border border-border/60 bg-background/70 px-5 py-2 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.3)] backdrop-blur-md supports-backdrop-filter:bg-background/60">
           <Link
             href="/"
             className={cn(

@@ -12,7 +12,7 @@ const focusRing =
 
 export function Hero() {
   return (
-    <section className="flex min-h-[100svh] w-full items-start pt-28 sm:pt-44">
+    <section className="flex w-full pt-28 pb-16 sm:pt-44 sm:pb-20">
       <div className="mx-auto w-full max-w-5xl px-6 sm:px-10 lg:px-16">
         <div className="max-w-xl">
           <h1 className="text-5xl font-semibold tracking-tight text-foreground sm:text-6xl">

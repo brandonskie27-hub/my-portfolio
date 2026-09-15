@@ -8,6 +8,15 @@
         "value": "gentle-bounce",
         "createdAt": "2026-09-15T03:39:27.968Z",
         "reason": "user requested a slow, gentle scroll-indicator bounce by name; uses plain ease-in-out, not an elastic/spring overshoot curve"
+      },
+      {
+        "rule": "border-accent-on-rounded",
+        "value": "*",
+        "files": [
+          "components/projects.tsx"
+        ],
+        "createdAt": "2026-09-15T04:27:55.391Z",
+        "reason": "user-requested top accent stripe on the featured card; visually verified in both themes to follow the rounded-3xl corners cleanly, not a clashing uniform thick border"
       }
     ]
   }

@@ -49,7 +49,7 @@ const focusRing =
 
 function TechTag({ label }: { label: string }) {
   return (
-    <span className="rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground">
+    <span className="rounded-full border border-border/70 px-3 py-1 font-mono text-[11px] tracking-wide text-muted-foreground">
       {label}
     </span>
   )
@@ -85,10 +85,11 @@ function FeaturedProjectCard({
   return (
     <div
       className={cn(
-        "flex flex-col gap-6 rounded-2xl border border-border bg-card p-8 text-card-foreground sm:p-10",
+        "relative flex flex-col gap-6 rounded-3xl border border-border/60 bg-card p-10 text-card-foreground transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.015] hover:border-border hover:shadow-xl sm:p-12",
         className
       )}
     >
+      <div aria-hidden="true" className="border-beam" />
       <div className="flex flex-col gap-3">
         <span className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
           Featured
@@ -118,7 +119,7 @@ function FeaturedProjectCard({
 
 function StandardProjectCard({ project }: { project: Project }) {
   return (
-    <div className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-6 text-card-foreground">
+    <div className="flex flex-col gap-4 rounded-3xl border border-border/60 bg-card p-8 text-card-foreground transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.015] hover:border-border hover:shadow-xl">
       <div className="flex flex-col gap-2">
         <h3 className="text-xl font-bold tracking-tight">{project.title}</h3>
         <p className="text-sm text-muted-foreground">{project.tagline}</p>
@@ -141,7 +142,7 @@ function StandardProjectCard({ project }: { project: Project }) {
 
 function ComingSoonCard() {
   return (
-    <div className="flex flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-border/70 p-6 text-center opacity-70">
+    <div className="flex flex-col items-center justify-center gap-2 rounded-3xl border border-dashed border-border/60 p-8 text-center opacity-70 transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.01] hover:border-border hover:opacity-90">
       <Sparkles className="size-5 text-muted-foreground" aria-hidden="true" />
       <p className="text-sm text-muted-foreground">More projects coming soon</p>
     </div>

@@ -203,3 +203,54 @@
     animation: none;
   }
 }
+
+/* Border beam: a thin highlight that travels around a card's border in a
+   continuous loop. A rotating conic-gradient is masked down to just the
+   border ring (the two-layer content-box/border-box mask below, combined
+   with mask-composite, is what leaves only that ring visible instead of
+   filling the whole card). Pure CSS custom-property animation, no JS
+   render loop. Uses --foreground (already flips per theme) rather than a
+   literal color, so the beam stays monochrome and legible in both themes. */
+@property --border-beam-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes border-beam-spin {
+  to {
+    --border-beam-angle: 360deg;
+  }
+}
+
+.border-beam {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--border-beam-angle),
+    transparent 0%,
+    transparent 88%,
+    var(--foreground) 94%,
+    transparent 100%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0.7;
+  animation: border-beam-spin 5s linear infinite;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .border-beam {
+    animation: none;
+    opacity: 0.3;
+  }
+}

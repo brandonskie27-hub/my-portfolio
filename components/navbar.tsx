@@ -5,6 +5,7 @@ import Link from "next/link"
 import { AnimatePresence, motion } from "framer-motion"
 import { Menu, X } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { ResumeLink } from "@/components/resume-link"
 import { cn } from "@/lib/utils"
 
 const NAV_LINKS = [
@@ -15,31 +16,11 @@ const NAV_LINKS = [
   { label: "Contact", href: "#contact" },
 ]
 
-const RESUME_HREF = "/resume.pdf"
-
 const linkFocusRing =
   "outline-none focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
 
 function NavDivider() {
   return <span aria-hidden="true" className="h-4 w-px shrink-0 bg-border" />
-}
-
-function ResumeLink({ className, onClick }: { className?: string; onClick?: () => void }) {
-  return (
-    <a
-      href={RESUME_HREF}
-      target="_blank"
-      rel="noopener noreferrer"
-      onClick={onClick}
-      className={cn(
-        "rounded-full bg-foreground font-medium text-background transition-colors hover:bg-foreground/85",
-        linkFocusRing,
-        className
-      )}
-    >
-      Resume
-    </a>
-  )
 }
 
 export function Navbar() {
@@ -59,7 +40,7 @@ export function Navbar() {
   return (
     <header className="fixed inset-x-0 top-4 z-50 flex justify-center px-4">
       <div className="relative">
-        <div className="flex items-center gap-1 rounded-full border border-border/60 bg-background/70 px-5 py-2 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.3)] backdrop-blur-md supports-backdrop-filter:bg-background/60">
+        <div className="flex items-center gap-1 rounded-full border border-border/60 bg-background/70 px-3 py-2 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.3)] backdrop-blur-md supports-backdrop-filter:bg-background/60">
           <Link
             href="/"
             className={cn(

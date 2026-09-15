@@ -1,4 +1,5 @@
-import { ArrowUpRight } from "lucide-react"
+import { ArrowUpRight, ChevronDown } from "lucide-react"
+import { HeroGrid } from "@/components/hero-grid"
 import { ResumeLink } from "@/components/resume-link"
 import { cn } from "@/lib/utils"
 
@@ -12,8 +13,20 @@ const focusRing =
 
 export function Hero() {
   return (
-    <section className="flex w-full pt-28 pb-16 sm:pt-44 sm:pb-20">
-      <div className="mx-auto w-full max-w-5xl px-6 sm:px-10 lg:px-16">
+    <section className="relative flex min-h-svh w-full items-center overflow-hidden pt-24 pb-20">
+      <HeroGrid />
+      {/* Fades the grid into the page background at the top (clears the
+          floating navbar) and bottom (softens into the next section)
+          instead of the pattern cutting off abruptly at the section edge. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 z-1 h-32 bg-linear-to-b from-background to-transparent sm:h-40"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-1 h-40 bg-linear-to-t from-background to-transparent sm:h-56"
+      />
+      <div className="relative z-10 mx-auto w-full max-w-5xl px-6 sm:px-10 lg:px-16">
         <div className="max-w-xl">
           <h1 className="text-5xl font-semibold tracking-tight text-foreground sm:text-6xl">
             Brandon Dylan Narito
@@ -62,6 +75,19 @@ export function Hero() {
             ))}
           </div>
         </div>
+      </div>
+
+      <div className="absolute inset-x-0 bottom-8 z-10 flex justify-center sm:bottom-10">
+        <a
+          href="#about"
+          aria-label="Scroll to About section"
+          className={cn(
+            "animate-gentle-bounce rounded-full p-2 text-muted-foreground/70 transition-colors hover:text-foreground",
+            focusRing
+          )}
+        >
+          <ChevronDown className="size-5" />
+        </a>
       </div>
     </section>
   )

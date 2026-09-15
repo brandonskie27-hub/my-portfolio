@@ -128,3 +128,78 @@
     @apply font-sans;
   }
 }
+
+/* Hero background grid: an always-faint base layer, plus a cursor-tracked
+   spotlight layer that reveals it more clearly around the pointer on
+   devices that actually have one. --spot-x/--spot-y are updated directly
+   via JS (bypassing React) for smooth, allocation-free mousemove updates. */
+@property --spot-x {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 50%;
+}
+
+@property --spot-y {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 50%;
+}
+
+.hero-grid-base {
+  opacity: 0.1;
+}
+
+.hero-grid-spotlight {
+  opacity: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-grid-spotlight {
+    opacity: 0;
+    transition:
+      opacity 0.3s ease,
+      --spot-x 0.08s linear,
+      --spot-y 0.08s linear;
+    mask-image: radial-gradient(
+      circle 240px at var(--spot-x) var(--spot-y),
+      black 0%,
+      transparent 100%
+    );
+    -webkit-mask-image: radial-gradient(
+      circle 240px at var(--spot-x) var(--spot-y),
+      black 0%,
+      transparent 100%
+    );
+  }
+
+  .hero-grid-spotlight.is-active {
+    opacity: 0.6;
+  }
+}
+
+/* Slow, gentle bounce for the Hero's scroll indicator: kept independent of
+   any transform-based positioning classes on the same element (they'd
+   otherwise clobber each other, since both set the `transform` property). */
+@keyframes gentle-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+.animate-gentle-bounce {
+  animation: gentle-bounce 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .animate-gentle-bounce {
+    animation: none;
+  }
+}

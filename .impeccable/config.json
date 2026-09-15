@@ -1,0 +1,14 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "bounce-easing",
+        "value": "gentle-bounce",
+        "createdAt": "2026-09-15T03:39:27.968Z",
+        "reason": "user requested a slow, gentle scroll-indicator bounce by name; uses plain ease-in-out, not an elastic/spring overshoot curve"
+      }
+    ]
+  }
+}

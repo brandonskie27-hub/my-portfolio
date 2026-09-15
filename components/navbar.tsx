@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { Fragment, useEffect, useState } from "react"
 import Link from "next/link"
 import { AnimatePresence, motion } from "framer-motion"
 import { Menu, X } from "lucide-react"
@@ -70,9 +70,9 @@ export function Navbar() {
             Brandon
           </Link>
 
-          <nav aria-label="Primary" className="hidden items-center md:flex">
+          <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
             {NAV_LINKS.map((link, index) => (
-              <div key={link.href} className="flex items-center gap-1">
+              <Fragment key={link.href}>
                 {index > 0 && <NavDivider />}
                 <a
                   href={link.href}
@@ -83,7 +83,7 @@ export function Navbar() {
                 >
                   {link.label}
                 </a>
-              </div>
+              </Fragment>
             ))}
           </nav>
 

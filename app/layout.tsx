@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { siteUrl } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,10 +16,25 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const title = "Brandon Dylan Narito";
+const description =
+  "Full-stack developer portfolio. Building clean, functional web applications, from backend logic to pixel-considered interfaces.";
+
 export const metadata: Metadata = {
-  title: "Brandon Dylan Narito",
-  description:
-    "Full-stack developer portfolio. Building clean, functional web applications, from backend logic to pixel-considered interfaces.",
+  metadataBase: new URL(siteUrl),
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+    type: "website",
+    url: "/",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

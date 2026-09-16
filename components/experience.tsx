@@ -23,6 +23,13 @@ const ENTRIES: ExperienceEntry[] = [
       "Designed and built an offline-first NFC attendance system through real school site visits, matching DepEd's SF2 attendance compliance requirements end to end.",
   },
   {
+    title: "Hands-On JavaScript, Crafting 10 Projects from Scratch",
+    place: "Udemy",
+    period: "April 2024",
+    description:
+      "Project-based JavaScript course covering core language fundamentals through ten hands-on builds.",
+  },
+  {
     title: "OJT & Freelance",
     place: "Open to opportunities",
     period: "Available now",

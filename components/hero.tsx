@@ -12,7 +12,10 @@ const focusRing =
 
 export function Hero() {
   return (
-    <section className="relative flex min-h-svh w-full items-center overflow-hidden pt-24 pb-20">
+    <section
+      id="top"
+      className="relative flex min-h-svh w-full items-center overflow-hidden pt-24 pb-20"
+    >
       <HeroGrid />
       {/* Fades the grid into the page background at the top (clears the
           floating navbar) and bottom (softens into the next section)

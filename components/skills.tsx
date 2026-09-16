@@ -1,7 +1,11 @@
 import type { IconType } from "react-icons"
 import { TbTag } from "react-icons/tb"
 import {
+  SiAndroidstudio,
+  SiFirebase,
+  SiFlutter,
   SiJavascript,
+  SiKotlin,
   SiMysql,
   SiNextdotjs,
   SiPhp,
@@ -33,6 +37,7 @@ const SKILL_GROUPS: SkillGroup[] = [
     skills: [
       { label: "TypeScript", icon: SiTypescript, brandColor: "#3178C6" },
       { label: "JavaScript", icon: SiJavascript, brandColor: "#F7DF1E" },
+      { label: "Kotlin", icon: SiKotlin, brandColor: "#7F52FF" },
       { label: "PHP", icon: SiPhp, brandColor: "#777BB4" },
       { label: "SQL", icon: TbTag },
     ],
@@ -43,12 +48,15 @@ const SKILL_GROUPS: SkillGroup[] = [
       { label: "React", icon: SiReact, brandColor: "#61DAFB" },
       { label: "Next.js", icon: SiNextdotjs },
       { label: "React Native", icon: SiReact, brandColor: "#61DAFB" },
+      { label: "Flutter", icon: SiFlutter, brandColor: "#02569C" },
       { label: "Tailwind CSS", icon: SiTailwindcss, brandColor: "#38BDF8" },
+      { label: "Android Studio", icon: SiAndroidstudio, brandColor: "#3DDC84" },
     ],
   },
   {
     label: "Backend & Data",
     skills: [
+      { label: "Firebase", icon: SiFirebase, brandColor: "#FFCA28" },
       { label: "Supabase", icon: SiSupabase, brandColor: "#3ECF8E" },
       { label: "PostgreSQL", icon: SiPostgresql, brandColor: "#4169E1" },
       { label: "MySQL", icon: SiMysql, brandColor: "#00758F" },

@@ -7,14 +7,12 @@ export function About() {
             About
           </h2>
           <p className="mt-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
-            I&apos;m currently a 4th year Computer Science student at PHINMA
-            UPANG College Urdaneta. Outside of coursework, I spend most of my
-            time as a full-stack developer, building web applications that
-            are clean, functional, and thought through end to end — from the
-            backend logic to the details in the interface. I&apos;m on the
-            lookout for an OJT placement, along with job and freelance
-            opportunities, so feel free to reach out if there&apos;s
-            something we could work on together.
+            My work spans both engineering and design, but the layer I
+            gravitate toward most is the frontend, where code and craft
+            meet. I like reasoning through a problem on the backend, then
+            spending the extra care making the interface feel considered:
+            consistent spacing, states that don&apos;t break when something
+            goes wrong, motion that has a reason to be there.
           </p>
         </div>
       </div>

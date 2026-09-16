@@ -177,30 +177,9 @@
   }
 }
 
-/* Slow, gentle bounce for the Hero's scroll indicator: kept independent of
-   any transform-based positioning classes on the same element (they'd
-   otherwise clobber each other, since both set the `transform` property). */
-@keyframes gentle-bounce {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(8px);
-  }
-}
-
-.animate-gentle-bounce {
-  animation: gentle-bounce 2.4s ease-in-out infinite;
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-
-  .animate-gentle-bounce {
-    animation: none;
   }
 }
 

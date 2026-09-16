@@ -1,11 +1,10 @@
-import { ArrowUpRight, ChevronDown } from "lucide-react"
+import { ArrowUpRight } from "lucide-react"
 import { HeroGrid } from "@/components/hero-grid"
 import { ResumeLink } from "@/components/resume-link"
 import { cn } from "@/lib/utils"
 
 const SOCIAL_LINKS = [
-  { label: "GitHub", href: "https://github.com/your-username" },
-  { label: "LinkedIn", href: "https://linkedin.com/in/your-username" },
+  { label: "GitHub", href: "https://github.com/brandonskie27-hub" },
 ]
 
 const focusRing =
@@ -35,11 +34,11 @@ export function Hero() {
           <div className="mt-6 flex flex-col gap-4">
             <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
               I&apos;m a full-stack developer who builds clean, functional web
-              applications — from backend logic to pixel-considered interfaces.
+              applications, from backend logic to pixel-considered interfaces.
             </p>
             <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
               Right now, I&apos;m open to OJT and full-time opportunities, as
-              well as freelance work — feel free to reach out if you&apos;re
+              well as freelance work. Feel free to reach out if you&apos;re
               looking to collaborate.
             </p>
           </div>
@@ -75,19 +74,6 @@ export function Hero() {
             ))}
           </div>
         </div>
-      </div>
-
-      <div className="absolute inset-x-0 bottom-8 z-10 flex justify-center sm:bottom-10">
-        <a
-          href="#about"
-          aria-label="Scroll to About section"
-          className={cn(
-            "animate-gentle-bounce rounded-full p-2 text-muted-foreground/70 transition-colors hover:text-foreground",
-            focusRing
-          )}
-        >
-          <ChevronDown className="size-5" />
-        </a>
       </div>
     </section>
   )

@@ -1,4 +1,6 @@
 import { ArrowUpRight, Sparkles } from "lucide-react"
+import { Reveal } from "@/components/reveal"
+import { StaggerGroup, StaggerItem } from "@/components/stagger"
 import { cn } from "@/lib/utils"
 
 type ProjectLink = { label: string; href: string }
@@ -75,20 +77,9 @@ function ProjectLinks({ links }: { links: ProjectLink[] }) {
   )
 }
 
-function FeaturedProjectCard({
-  project,
-  className,
-}: {
-  project: Project
-  className?: string
-}) {
+function FeaturedProjectCard({ project }: { project: Project }) {
   return (
-    <div
-      className={cn(
-        "relative flex flex-col gap-6 rounded-3xl border border-border/60 bg-card p-10 text-card-foreground transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.015] hover:border-border hover:shadow-xl sm:p-12",
-        className
-      )}
-    >
+    <div className="relative flex flex-col gap-6 rounded-3xl border border-border/60 bg-card p-10 text-card-foreground transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.015] hover:border-border hover:shadow-xl sm:p-12">
       <div aria-hidden="true" className="border-beam" />
       <div className="flex flex-col gap-3">
         <span className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
@@ -119,7 +110,7 @@ function FeaturedProjectCard({
 
 function StandardProjectCard({ project }: { project: Project }) {
   return (
-    <div className="flex flex-col gap-4 rounded-3xl border border-border/60 bg-card p-8 text-card-foreground transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.015] hover:border-border hover:shadow-xl">
+    <div className="flex h-full flex-col gap-4 rounded-3xl border border-border/60 bg-card p-8 text-card-foreground transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.015] hover:border-border hover:shadow-xl">
       <div className="flex flex-col gap-2">
         <h3 className="text-xl font-bold tracking-tight">{project.title}</h3>
         <p className="text-sm text-muted-foreground">{project.tagline}</p>
@@ -142,7 +133,7 @@ function StandardProjectCard({ project }: { project: Project }) {
 
 function ComingSoonCard() {
   return (
-    <div className="flex flex-col items-center justify-center gap-2 rounded-3xl border border-dashed border-border/60 p-8 text-center opacity-70 transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.01] hover:border-border hover:opacity-90">
+    <div className="flex h-full flex-col items-center justify-center gap-2 rounded-3xl border border-dashed border-border/60 p-8 text-center opacity-70 transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.01] hover:border-border hover:opacity-90">
       <Sparkles className="size-5 text-muted-foreground" aria-hidden="true" />
       <p className="text-sm text-muted-foreground">More projects coming soon</p>
     </div>
@@ -152,21 +143,26 @@ function ComingSoonCard() {
 export function Projects() {
   return (
     <section id="projects" className="w-full py-24 sm:py-32">
-      <div className="mx-auto w-full max-w-5xl px-6 sm:px-10 lg:px-16">
+      <Reveal className="mx-auto w-full max-w-5xl px-6 sm:px-10 lg:px-16">
         <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
           Projects
         </h2>
 
-        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <FeaturedProjectCard
-            project={FEATURED_PROJECT}
-            className="sm:col-span-2 lg:col-span-3"
-          />
-          <StandardProjectCard project={STANDARD_PROJECT} />
-          <ComingSoonCard />
-          <ComingSoonCard />
-        </div>
-      </div>
+        <StaggerGroup className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <StaggerItem className="sm:col-span-2 lg:col-span-3">
+            <FeaturedProjectCard project={FEATURED_PROJECT} />
+          </StaggerItem>
+          <StaggerItem className="h-full">
+            <StandardProjectCard project={STANDARD_PROJECT} />
+          </StaggerItem>
+          <StaggerItem className="h-full">
+            <ComingSoonCard />
+          </StaggerItem>
+          <StaggerItem className="h-full">
+            <ComingSoonCard />
+          </StaggerItem>
+        </StaggerGroup>
+      </Reveal>
     </section>
   )
 }

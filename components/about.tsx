@@ -1,7 +1,9 @@
+import { Reveal } from "@/components/reveal"
+
 export function About() {
   return (
     <section id="about" className="w-full py-24 sm:py-32">
-      <div className="mx-auto w-full max-w-5xl px-6 sm:px-10 lg:px-16">
+      <Reveal className="mx-auto w-full max-w-5xl px-6 sm:px-10 lg:px-16">
         <div className="max-w-xl">
           <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
             About
@@ -15,7 +17,7 @@ export function About() {
             goes wrong, motion that has a reason to be there.
           </p>
         </div>
-      </div>
+      </Reveal>
     </section>
   )
 }

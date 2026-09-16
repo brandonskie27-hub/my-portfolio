@@ -1,4 +1,5 @@
 import { ArrowUpRight } from "lucide-react"
+import { Reveal } from "@/components/reveal"
 import { cn } from "@/lib/utils"
 
 const CONTACT_LINKS = [
@@ -12,7 +13,7 @@ const focusRing =
 export function Contact() {
   return (
     <section id="contact" className="w-full py-24 sm:py-32">
-      <div className="mx-auto w-full max-w-5xl px-6 sm:px-10 lg:px-16">
+      <Reveal className="mx-auto w-full max-w-5xl px-6 sm:px-10 lg:px-16">
         <div className="max-w-xl">
           <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
             Contact
@@ -44,7 +45,7 @@ export function Contact() {
             ))}
           </div>
         </div>
-      </div>
+      </Reveal>
     </section>
   )
 }

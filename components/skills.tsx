@@ -15,6 +15,8 @@ import {
   SiTailwindcss,
   SiTypescript,
 } from "react-icons/si"
+import { Reveal } from "@/components/reveal"
+import { StaggerGroup, StaggerItem } from "@/components/stagger"
 import { cn } from "@/lib/utils"
 
 type Skill = {
@@ -89,7 +91,7 @@ function SkillPill({ label, icon: Icon, brandColor }: Skill) {
 
 function SkillGroupCard({ group }: { group: SkillGroup }) {
   return (
-    <div className="flex flex-col gap-5 rounded-3xl border border-border/60 bg-card p-8">
+    <div className="flex h-full flex-col gap-5 rounded-3xl border border-border/60 bg-card p-8">
       <div className="flex flex-col gap-2">
         <h3 className="text-base font-semibold tracking-tight text-foreground">
           {group.label}
@@ -108,17 +110,19 @@ function SkillGroupCard({ group }: { group: SkillGroup }) {
 export function Skills() {
   return (
     <section id="skills" className="w-full py-24 sm:py-32">
-      <div className="mx-auto w-full max-w-5xl px-6 sm:px-10 lg:px-16">
+      <Reveal className="mx-auto w-full max-w-5xl px-6 sm:px-10 lg:px-16">
         <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
           Skills
         </h2>
 
-        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <StaggerGroup className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {SKILL_GROUPS.map((group) => (
-            <SkillGroupCard key={group.label} group={group} />
+            <StaggerItem key={group.label} className="h-full">
+              <SkillGroupCard group={group} />
+            </StaggerItem>
           ))}
-        </div>
-      </div>
+        </StaggerGroup>
+      </Reveal>
     </section>
   )
 }

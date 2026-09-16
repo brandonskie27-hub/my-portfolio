@@ -1,3 +1,5 @@
+import { Reveal } from "@/components/reveal"
+
 type ExperienceEntry = {
   title: string
   place: string
@@ -32,7 +34,7 @@ const ENTRIES: ExperienceEntry[] = [
 export function Experience() {
   return (
     <section id="experience" className="w-full py-24 sm:py-32">
-      <div className="mx-auto w-full max-w-5xl px-6 sm:px-10 lg:px-16">
+      <Reveal className="mx-auto w-full max-w-5xl px-6 sm:px-10 lg:px-16">
         <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
           Experience
         </h2>
@@ -62,7 +64,7 @@ export function Experience() {
             </div>
           ))}
         </div>
-      </div>
+      </Reveal>
     </section>
   )
 }

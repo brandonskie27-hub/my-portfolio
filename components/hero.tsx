@@ -1,5 +1,6 @@
 import { ArrowUpRight } from "lucide-react"
 import { HeroGrid } from "@/components/hero-grid"
+import { BrandonMascot } from "@/components/mascot-widget"
 import { ResumeLink } from "@/components/resume-link"
 import { cn } from "@/lib/utils"
 
@@ -28,7 +29,7 @@ export function Hero() {
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 bottom-0 z-1 h-40 bg-linear-to-t from-background to-transparent sm:h-56"
       />
-      <div className="relative z-10 mx-auto w-full max-w-5xl px-6 sm:px-10 lg:px-16">
+      <div className="relative z-10 mx-auto flex w-full max-w-5xl items-center justify-between px-6 sm:px-10 lg:px-16">
         <div className="max-w-xl">
           <h1 className="text-5xl font-semibold tracking-tight text-foreground sm:text-6xl">
             Brandon Dylan Narito
@@ -76,6 +77,10 @@ export function Hero() {
               </a>
             ))}
           </div>
+        </div>
+
+        <div className="hidden shrink-0 lg:-mt-16 lg:block">
+          <BrandonMascot size={340} />
         </div>
       </div>
     </section>

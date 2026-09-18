@@ -44,3 +44,6 @@ skills-lock.json
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# page-mascot source sheets (large; rebuildable from these on request, not needed to run the site)
+/characters/

@@ -233,3 +233,27 @@
     opacity: 0.3;
   }
 }
+
+/* Typing-test caret: a hard on/off blink (not a smooth fade) to read like
+   an actual text cursor rather than a pulsing UI element. */
+@keyframes typing-caret-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.typing-caret {
+  animation: typing-caret-blink 1s step-end infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .typing-caret {
+    animation: none;
+    opacity: 1;
+  }
+}

@@ -2,6 +2,7 @@ import type { IconType } from "react-icons"
 import { TbTag } from "react-icons/tb"
 import {
   SiAndroidstudio,
+  SiClaude,
   SiFirebase,
   SiFlutter,
   SiJavascript,
@@ -53,6 +54,7 @@ const SKILL_GROUPS: SkillGroup[] = [
       { label: "Flutter", icon: SiFlutter, brandColor: "#02569C" },
       { label: "Tailwind CSS", icon: SiTailwindcss, brandColor: "#38BDF8" },
       { label: "Android Studio", icon: SiAndroidstudio, brandColor: "#3DDC84" },
+      { label: "Claude Code", icon: SiClaude, brandColor: "#D97757" },
     ],
   },
   {

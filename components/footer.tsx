@@ -1,4 +1,5 @@
 import { ArrowUp } from "lucide-react"
+import { ScrollToTopLink } from "@/components/scroll-to-top-link"
 import { cn } from "@/lib/utils"
 
 const focusRing =
@@ -11,8 +12,7 @@ export function Footer() {
     <footer className="w-full border-t border-border/60">
       <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-4 px-6 py-10 text-sm text-muted-foreground sm:flex-row sm:justify-between sm:px-10 lg:px-16">
         <p>&copy; {year} Brandon Dylan Narito.</p>
-        <a
-          href="#top"
+        <ScrollToTopLink
           className={cn(
             "group inline-flex items-center gap-1 rounded-sm text-muted-foreground transition-colors hover:text-foreground",
             focusRing
@@ -20,7 +20,7 @@ export function Footer() {
         >
           Back to top
           <ArrowUp className="size-3.5 transition-transform duration-200 group-hover:-translate-y-0.5" />
-        </a>
+        </ScrollToTopLink>
       </div>
     </footer>
   )

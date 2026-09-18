@@ -1,9 +1,9 @@
 "use client"
 
 import { Fragment, useEffect, useState } from "react"
-import Link from "next/link"
 import { AnimatePresence, motion } from "framer-motion"
 import { Menu, X } from "lucide-react"
+import { ScrollToTopLink } from "@/components/scroll-to-top-link"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { ResumeLink } from "@/components/resume-link"
 import { cn } from "@/lib/utils"
@@ -21,17 +21,6 @@ const linkFocusRing =
 
 function NavDivider() {
   return <span aria-hidden="true" className="h-4 w-px shrink-0 bg-border" />
-}
-
-function handleLogoClick(event: React.MouseEvent<HTMLAnchorElement>) {
-  // Link href="/" is a no-op when already on "/" (single-page site), so
-  // clicking the logo would otherwise do nothing. Scroll to top instead,
-  // while leaving modifier-clicks (new tab, etc.) to behave normally.
-  if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
-    return
-  }
-  event.preventDefault()
-  window.scrollTo({ top: 0, behavior: "smooth" })
 }
 
 export function Navbar() {
@@ -52,16 +41,14 @@ export function Navbar() {
     <header className="fixed inset-x-0 top-4 z-50 flex justify-center px-4">
       <div className="relative">
         <div className="flex items-center gap-1 rounded-full border border-border/60 bg-background/70 px-3 py-2 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.3)] backdrop-blur-md supports-backdrop-filter:bg-background/60">
-          <Link
-            href="/"
-            onClick={handleLogoClick}
+          <ScrollToTopLink
             className={cn(
               "mr-2 shrink-0 rounded-full text-sm font-semibold tracking-tight text-foreground",
               linkFocusRing
             )}
           >
             Brandon
-          </Link>
+          </ScrollToTopLink>
 
           <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
             {NAV_LINKS.map((link, index) => (

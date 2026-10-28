@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { ArrowUpRight, Sparkles } from "lucide-react"
 import { Reveal } from "@/components/reveal"
 import { StaggerGroup, StaggerItem } from "@/components/stagger"
@@ -40,7 +41,7 @@ const WHOLESALE_IMS_PROJECT: Project = {
   description:
     "Capstone project for a real wholesale and retail store. Tracks sales, stock across three locations, deliveries and customer credit (utang), with low-stock alerts. Requirements came from interviewing the owner.",
   tech: ["Laravel", "React", "Inertia.js", "TypeScript", "MySQL"],
-  links: [],
+  links: [{ label: "View Case Study", href: "/projects/wholesale-ims" }],
 }
 
 const STANDARD_PROJECT: Project = {
@@ -73,7 +74,7 @@ function ProjectLinks({ links }: { links: ProjectLink[] }) {
   return (
     <div className="flex flex-wrap items-center gap-6">
       {links.map((link) => (
-        <a
+        <Link
           key={link.label}
           href={link.href}
           className={cn(
@@ -83,7 +84,7 @@ function ProjectLinks({ links }: { links: ProjectLink[] }) {
         >
           {link.label}
           <ArrowUpRight className="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-        </a>
+        </Link>
       ))}
     </div>
   )

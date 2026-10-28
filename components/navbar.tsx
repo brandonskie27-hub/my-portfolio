@@ -1,6 +1,8 @@
 "use client"
 
 import { Fragment, useEffect, useState } from "react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { AnimatePresence, motion } from "framer-motion"
 import { Menu, X } from "lucide-react"
 import { ScrollToTopLink } from "@/components/scroll-to-top-link"
@@ -8,12 +10,14 @@ import { ThemeToggle } from "@/components/theme-toggle"
 import { ResumeLink } from "@/components/resume-link"
 import { cn } from "@/lib/utils"
 
+// Rooted at "/" so they also work from case study pages; on the home page the
+// browser treats them as same-page jumps.
 const NAV_LINKS = [
-  { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
-  { label: "Skills", href: "#skills" },
-  { label: "Experience", href: "#experience" },
-  { label: "Contact", href: "#contact" },
+  { label: "About", href: "/#about" },
+  { label: "Projects", href: "/#projects" },
+  { label: "Skills", href: "/#skills" },
+  { label: "Experience", href: "/#experience" },
+  { label: "Contact", href: "/#contact" },
 ]
 
 const linkFocusRing =
@@ -23,8 +27,14 @@ function NavDivider() {
   return <span aria-hidden="true" className="h-4 w-px shrink-0 bg-border" />
 }
 
+const logoClassName = cn(
+  "mr-2 shrink-0 rounded-full text-sm font-semibold tracking-tight text-foreground",
+  linkFocusRing
+)
+
 export function Navbar() {
   const [open, setOpen] = useState(false)
+  const isHome = usePathname() === "/"
 
   useEffect(() => {
     if (!open) return
@@ -41,14 +51,13 @@ export function Navbar() {
     <header className="fixed inset-x-0 top-4 z-50 flex justify-center px-4">
       <div className="relative">
         <div className="flex items-center gap-1 rounded-full border border-border/60 bg-background/70 px-3 py-2 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.3)] backdrop-blur-md supports-backdrop-filter:bg-background/60">
-          <ScrollToTopLink
-            className={cn(
-              "mr-2 shrink-0 rounded-full text-sm font-semibold tracking-tight text-foreground",
-              linkFocusRing
-            )}
-          >
-            Brandon
-          </ScrollToTopLink>
+          {isHome ? (
+            <ScrollToTopLink className={logoClassName}>Brandon</ScrollToTopLink>
+          ) : (
+            <Link href="/" className={logoClassName}>
+              Brandon
+            </Link>
+          )}
 
           <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
             {NAV_LINKS.map((link, index) => (

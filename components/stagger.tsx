@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, useReducedMotion, type HTMLMotionProps, type Variants } from "framer-motion"
+import { motion, MotionConfig, type HTMLMotionProps, type Variants } from "framer-motion"
 
 const containerVariants: Variants = {
   hidden: {},
@@ -18,18 +18,19 @@ const itemVariants: Variants = {
  *  instead of all at once. Use alongside Reveal, not instead of it - this
  *  only handles the cascade between items, not the section-level fade. */
 export function StaggerGroup({ children, ...props }: HTMLMotionProps<"div">) {
-  const reduceMotion = useReducedMotion()
-
+  // Same reduced-motion handling as Reveal: fade only, no slide.
   return (
-    <motion.div
-      initial={reduceMotion ? false : "hidden"}
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
-      variants={containerVariants}
-      {...props}
-    >
-      {children}
-    </motion.div>
+    <MotionConfig reducedMotion="user">
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={containerVariants}
+        {...props}
+      >
+        {children}
+      </motion.div>
+    </MotionConfig>
   )
 }
 

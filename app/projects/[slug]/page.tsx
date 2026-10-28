@@ -4,12 +4,14 @@ import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { ArrowLeft } from "lucide-react"
+import { OfflineSyncDiagram } from "@/components/case-study/offline-sync-diagram"
 import { StockFlowDiagram } from "@/components/case-study/stock-flow-diagram"
 import { CASE_STUDIES, getCaseStudy, type CaseStudyDiagram } from "@/lib/case-studies"
 import { cn } from "@/lib/utils"
 
 const DIAGRAMS: Record<CaseStudyDiagram, ComponentType> = {
   "wholesale-ims-stock-flow": StockFlowDiagram,
+  "tapt-offline-sync": OfflineSyncDiagram,
 }
 
 const focusRing =
@@ -126,9 +128,9 @@ export default async function CaseStudyPage({ params }: PageProps<"/projects/[sl
         <Section title="The problem">
           <Paragraphs items={study.problem} />
           <div className="rounded-3xl border border-border/60 bg-card p-6 sm:p-8">
-            <p className="mb-4 text-sm font-semibold text-foreground">What the owner asked for</p>
+            <p className="mb-4 text-sm font-semibold text-foreground">{study.asks.title}</p>
             <ol className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {study.asks.map((ask, index) => (
+              {study.asks.items.map((ask, index) => (
                 <li key={ask} className="flex gap-3 text-sm text-muted-foreground">
                   <span className="font-mono text-xs text-foreground/60">{String(index + 1).padStart(2, "0")}</span>
                   {ask}
@@ -159,7 +161,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/projects/[sl
         </Section>
 
         {study.diagram && Diagram && (
-          <Section title="How stock moves">
+          <Section title={study.diagram.title}>
             <figure className="flex flex-col gap-4">
               <div className="rounded-3xl border border-border/60 bg-card p-5 sm:p-8">
                 <Diagram />
@@ -168,6 +170,13 @@ export default async function CaseStudyPage({ params }: PageProps<"/projects/[sl
             </figure>
           </Section>
         )}
+
+        {study.extraSections?.map((section) => (
+          <Section key={section.title} title={section.title}>
+            {section.intro && <Paragraphs items={[section.intro]} />}
+            <BulletList items={section.bullets} />
+          </Section>
+        ))}
 
         {study.screenshots.length > 0 && (
           <Section title="Screens">

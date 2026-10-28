@@ -1,4 +1,4 @@
-export type CaseStudyDiagram = "wholesale-ims-stock-flow"
+export type CaseStudyDiagram = "wholesale-ims-stock-flow" | "tapt-offline-sync"
 
 export type CaseStudyImage = {
   /** Path under /public, e.g. "/projects/wholesale-ims/checkout.png" */
@@ -16,10 +16,13 @@ export type CaseStudy = {
   meta: { label: string; value: string }[]
   tech: string[]
   problem: string[]
-  asks: string[]
+  /** Numbered box under the problem, e.g. what the client asked for. */
+  asks: { title: string; items: string[] }
   constraints: string[]
   decisions: { title: string; body: string }[]
-  diagram?: { id: CaseStudyDiagram; caption: string }
+  diagram?: { id: CaseStudyDiagram; title: string; caption: string }
+  /** Project-specific sections shown after the diagram. */
+  extraSections?: { title: string; intro?: string; bullets: string[] }[]
   features: string[]
   process: string[]
   /** Leave empty until real screenshots exist; the gallery is hidden when empty. */
@@ -27,6 +30,107 @@ export type CaseStudy = {
 }
 
 export const CASE_STUDIES: CaseStudy[] = [
+  {
+    slug: "tapt",
+    title: "Tapt",
+    tagline:
+      "An offline-first NFC attendance system that turns card taps into DepEd's monthly SF2 report.",
+    meta: [
+      { label: "Role", value: "Full-stack developer" },
+      { label: "Type", value: "Thesis, team project" },
+      { label: "Timeline", value: "Aug 2026 to present" },
+      { label: "Status", value: "Ready for pilot" },
+    ],
+    tech: [
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "React",
+      "Supabase",
+      "PostgreSQL",
+      "expo-sqlite",
+      "Vitest",
+    ],
+    problem: [
+      "At the partner school, a public senior high school in Pangasinan, attendance was kept on paper. A student class secretary wrote attendance on a logsheet every subject period, the subject teacher signed it, and at the end of the month the class adviser tallied everything by hand into School Form 2 (SF2), DepEd's Daily Attendance Report of Learners.",
+      "The SF2 is strict: each day splits into AM and PM half-days, partial absence counts as tardy, learners are grouped by sex with subtotals, and the form needs monthly statistics like Average Daily Attendance and learners with five consecutive absences. Doing that by hand every month is slow and error-prone, and a lost or unsigned logsheet leaves a gap the adviser has to reconstruct.",
+    ],
+    asks: {
+      title: "Who uses it",
+      items: [
+        "Class secretary: scans classmates' NFC cards on an Android phone",
+        "Class adviser: reviews, corrects and confirms each session, then exports the SF2",
+        "Admin: sets up the school, rosters, schedules and suspensions on the web",
+        "Students: just tap their cards, with no account to manage",
+      ],
+    },
+    constraints: [
+      "The classroom has no reliable Wi-Fi or mobile data, so the app had to work fully offline. This was a hard requirement, not a nice-to-have.",
+      "The secretary takes attendance in the short change between periods, so scanning had to be fast and hard to get wrong.",
+      "Class suspensions for typhoons and flooding come from several sources (PAGASA, DepEd, the provincial DRRMO, the LGU, the school) and arrive unpredictably.",
+      "The output had to be the official SF2, matching DepEd's rules exactly, not a look-alike report.",
+      "The data is about minors, so access had to follow the Data Privacy Act of 2012 (RA 10173): scoped by role, with as little data collected as possible.",
+    ],
+    decisions: [
+      {
+        title: "Offline-first with a local write queue",
+        body: "Every write is saved to SQLite on the phone before any network call. A sync queue sends writes to Supabase one at a time, in the exact order they were made, retrying with backoff. Order matters because the server only accepts taps while a session is open: if \"session ended\" arrived before an offline tap, the tap would be rejected. A bug that broke this ordering was found, fixed and covered by tests.",
+      },
+      {
+        title: "IDs made on the phone, so retries are harmless",
+        body: "Sessions and attendance records get their UUID on the phone, not from the server. The server upserts on that ID, so if the app is killed after a write lands but before it's marked synced, sending it again updates the same row instead of creating a duplicate. A double tap reuses the existing record too.",
+      },
+      {
+        title: "Access rules live in the database",
+        body: "Supabase row-level security is on for every table: each school sees only its data, secretaries and advisers only their section, and each role can write only what it should. A bug in the app can't leak another section's attendance. Work that needs secret keys, like filling the SF2 or creating accounts, runs in Edge Functions so the keys never reach a phone.",
+      },
+      {
+        title: "Only the adviser corrects marks",
+        body: "Subject teachers aren't in the system, so the adviser's confirmation replaced the paper signature. A card tap is the only way a secretary can mark someone present, and the database blocks anything else. Every correction is the adviser's, and the original mark is kept for audit.",
+      },
+      {
+        title: "Follow the real SF2 exactly",
+        body: "The export fills DepEd's official Excel template, with cell addresses read from the actual file. An early draft used a majority rule for half-days; after checking with the adviser and the real form, it was corrected to the count-and-compare rule the SF2 actually uses.",
+      },
+    ],
+    diagram: {
+      id: "tapt-offline-sync",
+      title: "From tap to SF2",
+      caption:
+        "Taps are saved on the phone first and synced in order whenever a connection appears. Only adviser-confirmed sessions count toward the SF2.",
+    },
+    extraSections: [
+      {
+        title: "Getting the SF2 right",
+        intro:
+          "Requirements came from a site visit and questionnaire at the school, its real class program, a real DepEd school calendar, the official blank SF2 template read cell by cell, and direct confirmation of the half-day rule with the adviser.",
+        bullets: [
+          "Half-day rule: absent in none of a block's sessions is Present, in some is Tardy, in all is Absent.",
+          "Suspensions and holidays mark a block as no class, so fully suspended days never count as absences. A suspension declared mid-session ends it; the data is kept but excluded.",
+          "Learners are grouped by sex with subtotals, and the monthly summary fills Average Daily Attendance, percentage of attendance and five-consecutive-absence counts.",
+          "Unconfirmed sessions don't block the export. They're flagged for the adviser, the same way a missing paper sheet is handled today.",
+          "Advisers can also download a blank SF2 with the class list and school days filled in, for filling by hand.",
+        ],
+      },
+    ],
+    features: [
+      "NFC scanning with the card's read-only UID; nothing is written to the card",
+      "Session flow: start, tap, end (non-tappers become absent), adviser confirms",
+      "Push notifications to the adviser for each finalized session",
+      "Sync Problems screen for writes the server rejects, so nothing is skipped silently",
+      "Roster import from the school's SF1 Excel export",
+      "Weekly class schedule, holidays and suspensions managed by the admin",
+      "Monthly SF2 export through a short-lived private link",
+      "15-table PostgreSQL schema with row-level security on every table",
+    ],
+    process: [
+      "About 60 commits between late August and October 2026. Testing covered 22 Vitest unit tests for sync ordering, backoff, error handling and suspension rules, emulator runs including offline and device-clock scenarios, a database test of the secretary's write rules, and checks that forged login tokens are rejected.",
+      "A dry run at the partner school on real phones confirmed login, NFC scanning and push notifications work, and surfaced one limit: the sync queue is per phone, so each account needs its own device.",
+      "At the thesis panel evaluation, the panel made ten suggestions. Nine were built, tested and deployed the same day, including database rules that stop secretaries from marking attendance by hand; two-factor authentication was deferred to future work.",
+      "A 2 to 4 week pilot with two sections and 100 NFC cards is planned, with the paper SF2 kept in parallel to compare accuracy.",
+    ],
+    screenshots: [],
+  },
   {
     slug: "wholesale-ims",
     title: "Wholesale IMS",
@@ -43,12 +147,15 @@ export const CASE_STUDIES: CaseStudy[] = [
       "The client is a wholesale and retail store in the Philippines selling cooking oil, vinegar, shrimp paste, salt, flour, sugar and similar goods. Every sale was written by hand in a logbook: date, quantity and item, price, total.",
       "Totals were computed by hand and often wrong. Stock wasn't tracked at all, so items went missing and nobody knew where or when. Customer credit (utang) lived in separate handwritten lists, one per customer.",
     ],
-    asks: [
-      "Monitor daily sales",
-      "Monitor stock and deliveries",
-      "See which customers have utang and how much they owe",
-      "See which products are running low",
-    ],
+    asks: {
+      title: "What the owner asked for",
+      items: [
+        "Monitor daily sales",
+        "Monitor stock and deliveries",
+        "See which customers have utang and how much they owe",
+        "See which products are running low",
+      ],
+    },
     constraints: [
       "The owner checks the business from a phone while staff sell from a laptop at the counter, so every screen had to work on both.",
       "Stock sits in one store and two warehouses (bodega) and moves between them.",
@@ -80,6 +187,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     diagram: {
       id: "wholesale-ims-stock-flow",
+      title: "How stock moves",
       caption:
         "Every way stock can change passes through the same ledger, which keeps both the current count and the full history.",
     },

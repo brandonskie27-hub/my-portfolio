@@ -29,7 +29,7 @@ const FEATURED_PROJECT: Project = {
     "TypeScript",
   ],
   links: [
-    { label: "View Case Study", href: "#" },
+    { label: "View Case Study", href: "/projects/tapt" },
     { label: "GitHub", href: "#" },
   ],
 }

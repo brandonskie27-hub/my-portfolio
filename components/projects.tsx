@@ -33,6 +33,16 @@ const FEATURED_PROJECT: Project = {
   ],
 }
 
+const WHOLESALE_IMS_PROJECT: Project = {
+  title: "Wholesale IMS",
+  tagline:
+    "An inventory and sales system replacing a wholesale store's handwritten logbook.",
+  description:
+    "Capstone project for a real wholesale and retail store. Tracks sales, stock across three locations, deliveries and customer credit (utang), with low-stock alerts. Requirements came from interviewing the owner.",
+  tech: ["Laravel", "React", "Inertia.js", "TypeScript", "MySQL"],
+  links: [],
+}
+
 const STANDARD_PROJECT: Project = {
   title: "E-Commerce Demo",
   tagline:
@@ -58,6 +68,8 @@ function TechTag({ label }: { label: string }) {
 }
 
 function ProjectLinks({ links }: { links: ProjectLink[] }) {
+  if (links.length === 0) return null
+
   return (
     <div className="flex flex-wrap items-center gap-6">
       {links.map((link) => (
@@ -153,10 +165,10 @@ export function Projects() {
             <FeaturedProjectCard project={FEATURED_PROJECT} />
           </StaggerItem>
           <StaggerItem className="h-full">
-            <StandardProjectCard project={STANDARD_PROJECT} />
+            <StandardProjectCard project={WHOLESALE_IMS_PROJECT} />
           </StaggerItem>
           <StaggerItem className="h-full">
-            <ComingSoonCard />
+            <StandardProjectCard project={STANDARD_PROJECT} />
           </StaggerItem>
           <StaggerItem className="h-full">
             <ComingSoonCard />

@@ -131,7 +131,82 @@ export const CASE_STUDIES: CaseStudy[] = [
       "At the thesis panel evaluation, the panel made ten suggestions. Nine were built, tested and deployed the same day, including database rules that stop secretaries from marking attendance by hand; two-factor authentication was deferred to future work.",
       "A 2 to 4 week pilot with two sections and 100 NFC cards is planned, with the paper SF2 kept in parallel to compare accuracy.",
     ],
-    screenshots: [],
+    // Demo school ("Tapt Demo High School") with made-up learners and LRNs. The
+    // phone shots come from an emulator, so the taps shown are seeded records.
+    screenshots: [
+      {
+        src: "/projects/tapt/01-secretary-today.png",
+        alt: "The secretary's home screen listing today's classes, with the current class in progress and earlier ones marked confirmed or pending adviser review.",
+        width: 1080,
+        height: 2400,
+        caption: "The secretary's day at a glance: what's running now, and what still needs the adviser.",
+        narrow: true,
+      },
+      {
+        src: "/projects/tapt/02-scanning.png",
+        alt: "The scanning screen showing \"NFC Ready to Scan\" for Earth and Life Science, 14 of 22 learners scanned, and a list of learners not yet scanned.",
+        width: 1080,
+        height: 2400,
+        caption:
+          "Taking attendance by NFC tap. Anyone who hasn't tapped is marked absent when the session ends. (Demo records: the emulator has no NFC reader.)",
+        narrow: true,
+      },
+      {
+        src: "/projects/tapt/03-offline.png",
+        alt: "The scanning screen in airplane mode, with an amber banner saying the device is offline and changes will sync when it reconnects.",
+        width: 1080,
+        height: 2400,
+        caption: "Works offline: taps are saved on the phone and upload once a connection is back.",
+        narrow: true,
+      },
+      {
+        src: "/projects/tapt/04-sync-problems.png",
+        alt: "A Sync problems list showing attendance changes the server rejected, each with the error details and a Skip this change button.",
+        width: 1080,
+        height: 2400,
+        caption:
+          "When the server rejects an offline change, here a secretary marking attendance by hand, it's shown plainly instead of retrying forever.",
+        narrow: true,
+      },
+      {
+        src: "/projects/tapt/05-adviser-review.png",
+        alt: "The adviser's session review with one learner's mark corrected to Late and labeled as edited, above a Confirm button.",
+        width: 1080,
+        height: 2400,
+        caption: "The adviser reviews the secretary's record, corrects a mark, and confirms the session.",
+        narrow: true,
+      },
+      {
+        src: "/projects/tapt/06-sf2-export.png",
+        alt: "The SF2 Export screen for October 2026 with an alert explaining that some days aren't confirmed yet and will be flagged in the file.",
+        width: 1080,
+        height: 2400,
+        caption: "SF2 export flags unconfirmed days instead of passing them off as final.",
+        narrow: true,
+      },
+      {
+        src: "/projects/tapt/07-admin-schedule.png",
+        alt: "The admin Schedule page listing eight subjects for a section with their AM or PM block, weekdays and class times.",
+        width: 1440,
+        height: 900,
+        caption: "The admin web: each section's weekly class program, which drives the secretary's daily list.",
+      },
+      {
+        src: "/projects/tapt/08-admin-suspension.png",
+        alt: "The admin Calendar page with a Declare Event dialog filled in for a whole-day, school-wide class suspension due to a typhoon.",
+        width: 1440,
+        height: 900,
+        caption: "Declaring a class suspension, so suspended days drop out of attendance and the SF2.",
+      },
+      {
+        src: "/projects/tapt/09-sf2-filled.png",
+        alt: "A filled DepEd School Form 2 for October 2026 with daily attendance columns, male and female learners grouped with daily totals, absences as X, tardies as shaded cells, and the monthly summary box.",
+        width: 1653,
+        height: 2177,
+        caption:
+          "The generated SF2 in DepEd's official template: day columns, sex grouping and the monthly summary, all computed from the taps.",
+      },
+    ],
   },
   {
     slug: "wholesale-ims",

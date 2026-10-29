@@ -77,6 +77,17 @@ function Paragraphs({ items }: { items: string[] }) {
   )
 }
 
+/** Keeps the data's order, but collects each run of narrow shots into one row. */
+function groupNarrowShots(shots: CaseStudyImage[]) {
+  const blocks: (CaseStudyImage | CaseStudyImage[])[] = []
+  for (const shot of shots) {
+    const last = blocks.at(-1)
+    if (shot.narrow && Array.isArray(last)) last.push(shot)
+    else blocks.push(shot.narrow ? [shot] : shot)
+  }
+  return blocks
+}
+
 function Screenshot({ shot, sizes }: { shot: CaseStudyImage; sizes: string }) {
   return (
     <figure className="flex flex-col gap-3">
@@ -109,8 +120,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/projects/[sl
   if (!study) notFound()
 
   const Diagram = study.diagram ? DIAGRAMS[study.diagram.id] : null
-  const wideShots = study.screenshots.filter((shot) => !shot.narrow)
-  const narrowShots = study.screenshots.filter((shot) => shot.narrow)
+  const screenshotBlocks = groupNarrowShots(study.screenshots)
 
   return (
     <main className="flex flex-1 flex-col">
@@ -215,15 +225,19 @@ export default async function CaseStudyPage({ params }: PageProps<"/projects/[sl
           <Section title="Screens">
             {/* Wider than the text column on large screens so desktop shots stay readable. */}
             <div className="flex flex-col gap-12 lg:-mx-24">
-              {wideShots.map((shot) => (
-                <Screenshot key={shot.src} shot={shot} sizes="(min-width: 1024px) 960px, 100vw" />
-              ))}
-              {narrowShots.length > 0 && (
-                <div className="grid grid-cols-1 items-start gap-8 sm:grid-cols-3">
-                  {narrowShots.map((shot) => (
-                    <Screenshot key={shot.src} shot={shot} sizes="(min-width: 640px) 320px, 100vw" />
-                  ))}
-                </div>
+              {screenshotBlocks.map((block) =>
+                Array.isArray(block) ? (
+                  <div
+                    key={block[0].src}
+                    className="grid grid-cols-1 items-start gap-8 sm:grid-cols-3"
+                  >
+                    {block.map((shot) => (
+                      <Screenshot key={shot.src} shot={shot} sizes="(min-width: 640px) 320px, 100vw" />
+                    ))}
+                  </div>
+                ) : (
+                  <Screenshot key={block.src} shot={block} sizes="(min-width: 1024px) 960px, 100vw" />
+                )
               )}
             </div>
           </Section>

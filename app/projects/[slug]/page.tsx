@@ -6,7 +6,12 @@ import { notFound } from "next/navigation"
 import { ArrowLeft } from "lucide-react"
 import { OfflineSyncDiagram } from "@/components/case-study/offline-sync-diagram"
 import { StockFlowDiagram } from "@/components/case-study/stock-flow-diagram"
-import { CASE_STUDIES, getCaseStudy, type CaseStudyDiagram } from "@/lib/case-studies"
+import {
+  CASE_STUDIES,
+  getCaseStudy,
+  type CaseStudyDiagram,
+  type CaseStudyImage,
+} from "@/lib/case-studies"
 import { cn } from "@/lib/utils"
 
 const DIAGRAMS: Record<CaseStudyDiagram, ComponentType> = {
@@ -72,12 +77,40 @@ function Paragraphs({ items }: { items: string[] }) {
   )
 }
 
+function Screenshot({ shot, sizes }: { shot: CaseStudyImage; sizes: string }) {
+  return (
+    <figure className="flex flex-col gap-3">
+      <a
+        href={shot.src}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Open full size: ${shot.alt}`}
+        className={cn("block overflow-hidden rounded-2xl border border-border/60", focusRing)}
+      >
+        <Image
+          src={shot.src}
+          alt={shot.alt}
+          width={shot.width}
+          height={shot.height}
+          sizes={sizes}
+          className="h-auto w-full"
+        />
+      </a>
+      {shot.caption && (
+        <figcaption className="text-sm leading-relaxed text-muted-foreground">{shot.caption}</figcaption>
+      )}
+    </figure>
+  )
+}
+
 export default async function CaseStudyPage({ params }: PageProps<"/projects/[slug]">) {
   const { slug } = await params
   const study = getCaseStudy(slug)
   if (!study) notFound()
 
   const Diagram = study.diagram ? DIAGRAMS[study.diagram.id] : null
+  const wideShots = study.screenshots.filter((shot) => !shot.narrow)
+  const narrowShots = study.screenshots.filter((shot) => shot.narrow)
 
   return (
     <main className="flex flex-1 flex-col">
@@ -180,21 +213,18 @@ export default async function CaseStudyPage({ params }: PageProps<"/projects/[sl
 
         {study.screenshots.length > 0 && (
           <Section title="Screens">
-            <div className="flex flex-col gap-8">
-              {study.screenshots.map((shot) => (
-                <figure key={shot.src} className="flex flex-col gap-3">
-                  <Image
-                    src={shot.src}
-                    alt={shot.alt}
-                    width={shot.width}
-                    height={shot.height}
-                    className="w-full rounded-2xl border border-border/60"
-                  />
-                  {shot.caption && (
-                    <figcaption className="text-sm text-muted-foreground">{shot.caption}</figcaption>
-                  )}
-                </figure>
+            {/* Wider than the text column on large screens so desktop shots stay readable. */}
+            <div className="flex flex-col gap-12 lg:-mx-24">
+              {wideShots.map((shot) => (
+                <Screenshot key={shot.src} shot={shot} sizes="(min-width: 1024px) 960px, 100vw" />
               ))}
+              {narrowShots.length > 0 && (
+                <div className="grid grid-cols-1 items-start gap-8 sm:grid-cols-3">
+                  {narrowShots.map((shot) => (
+                    <Screenshot key={shot.src} shot={shot} sizes="(min-width: 640px) 320px, 100vw" />
+                  ))}
+                </div>
+              )}
             </div>
           </Section>
         )}

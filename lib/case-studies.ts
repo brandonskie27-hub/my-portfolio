@@ -7,6 +7,8 @@ export type CaseStudyImage = {
   width: number
   height: number
   caption?: string
+  /** Phone screens and other tall shots, shown side by side instead of full width. */
+  narrow?: boolean
 }
 
 export type CaseStudy = {
@@ -207,7 +209,81 @@ export const CASE_STUDIES: CaseStudy[] = [
       "The build went in five phases: foundation, products and stock, sales, credit, then stock counts and reports. Each phase started with a plan of tables, pages and routes before implementation.",
       "Business rules live in dedicated action classes instead of controllers, and the project has 160 Pest tests covering those rules and the owner/staff restrictions.",
     ],
-    screenshots: [],
+    // Demo data only ("Sample Trading Co."): no real client names or amounts.
+    screenshots: [
+      {
+        src: "/projects/wholesale-ims/01-dashboard.png",
+        alt: "Owner dashboard with colored tiles for today's sales, cash, credit, transactions, total owed and overdue, above panels for low stock, orders to deliver, credit due and stock-count differences.",
+        width: 1440,
+        height: 900,
+        caption:
+          "The owner's daily overview. Each color has one meaning (green for money in, orange for utang, red for problems), so the overdue total and low-stock items stand out at a glance.",
+      },
+      {
+        src: "/projects/wholesale-ims/02-checkout.png",
+        alt: "New sale screen with three items for a regular customer; the flour line shows a sack price of ₱1,150 labeled \"Last price paid\", and credit (utang) is selected.",
+        width: 1440,
+        height: 900,
+        caption:
+          "Checkout for a regular customer: the last price they paid fills in automatically (₱1,150 instead of the regular ₱1,180), and the system computes the total. Staff can still edit any price, and every change is logged.",
+      },
+      {
+        src: "/projects/wholesale-ims/03-product-units.png",
+        alt: "Product page for cooking oil showing stock per location in liters and five selling units from 350 ml to a 19 L container, each with how much it takes from stock and its price.",
+        width: 1440,
+        height: 900,
+        caption:
+          "Oil is stored in bulk and repacked per order, so stock is counted in liters and each selling unit converts to liters. A 1.5 L bottle takes exactly 1.5 L from stock, with no separate repacking step.",
+      },
+      {
+        src: "/projects/wholesale-ims/04-stock-movements.png",
+        alt: "Stock history for cooking oil listing sales, a stock count, a delivery and a transfer, each with location, date, who did it, the change in liters and the running balance.",
+        width: 1440,
+        height: 900,
+        caption:
+          "Every stock change is recorded with who did it and when, so current stock can always be explained. The −2.5 L stock count entry is exactly the kind of missing stock the owner could never trace on paper.",
+      },
+      {
+        src: "/projects/wholesale-ims/05-credit.png",
+        alt: "Credit (utang) list with total owed and overdue tiles, and six customers with their balances; three show red overdue badges.",
+        width: 1440,
+        height: 900,
+        caption:
+          "Owner-only view of who owes money, replacing separate handwritten utang lists. Overdue customers sort to the top, so the owner knows whom to collect from first.",
+      },
+      {
+        src: "/projects/wholesale-ims/06-variance-report.png",
+        alt: "Stock count differences report with a date filter, a per-product total and a table of each difference with system quantity, counted quantity and who counted.",
+        width: 1440,
+        height: 900,
+        caption:
+          "Physical counts compared with what the system expected. Negative differences make missing stock visible, one of the owner's main problems.",
+      },
+      {
+        src: "/projects/wholesale-ims/08-mobile-dashboard.png",
+        alt: "The dashboard on a phone, with stacked colored tiles for sales, cash, credit, total owed and overdue, followed by the low-stock list.",
+        width: 390,
+        height: 844,
+        caption: "The same dashboard on the owner's phone, with today's sales and overdue utang visible without scrolling.",
+        narrow: true,
+      },
+      {
+        src: "/projects/wholesale-ims/09-mobile-credit.png",
+        alt: "The credit (utang) list on a phone, with total owed and overdue tiles and customer cards showing balances and red overdue badges.",
+        width: 390,
+        height: 844,
+        caption: "Collecting utang away from the counter: who owes what, and who is overdue.",
+        narrow: true,
+      },
+      {
+        src: "/projects/wholesale-ims/07-receipt.png",
+        alt: "Printable receipt for a demo store with sale number, date, customer, cashier, two items, total and payment type, marked \"This is not an official receipt\".",
+        width: 464,
+        height: 536,
+        caption: "A printable receipt, deliberately labeled non-official because BIR official receipts stay manual.",
+        narrow: true,
+      },
+    ],
   },
 ]
 

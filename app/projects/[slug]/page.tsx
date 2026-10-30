@@ -36,10 +36,15 @@ export async function generateMetadata({
   if (!study) return {}
 
   const title = `${study.title} case study | Brandon Dylan Narito`
+  const url = `/projects/${study.slug}`
+  // openGraph and twitter replace the layout's versions rather than merging,
+  // so they're spelled out in full here.
   return {
     title,
     description: study.tagline,
-    openGraph: { title, description: study.tagline, url: `/projects/${study.slug}` },
+    alternates: { canonical: url },
+    openGraph: { title, description: study.tagline, url, type: "article" },
+    twitter: { card: "summary_large_image", title, description: study.tagline },
   }
 }
 

@@ -18,9 +18,9 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const title = "Brandon Dylan Narito";
+const title = "Brandon Dylan Narito | Full-stack Developer";
 const description =
-  "Full-stack developer portfolio. Building clean, functional web applications, from backend logic to pixel-considered interfaces.";
+  "Computer Science student in Pangasinan, Philippines building full-stack web and mobile apps with React, TypeScript and Laravel. Case studies: Tapt and Wholesale IMS.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
